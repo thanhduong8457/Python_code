@@ -3,7 +3,7 @@ import numpy as np
    
 # Read an image
 img = cv2.imread('images/picture_1.jpg')
-img = cv2.resize(img, (0,0), None, 0.3, 0.3)
+img = cv2.resize(img, (0,0), None, 0.5, 0.5)
    
 # Apply log transformation method
 c = 255 / np.log(1 + np.max(img))
