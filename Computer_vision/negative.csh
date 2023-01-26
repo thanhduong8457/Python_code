@@ -1,0 +1,1 @@
+python3 negative.py -s images/picture_1.jpg

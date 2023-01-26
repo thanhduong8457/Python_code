@@ -1,4 +1,4 @@
-s=0
-for i in range(10000000):
-    s = s + 1/((i+1)*(i+2))
-print(s)
+for x in range(2, 10):
+    for i in range(1, 10):
+        print("%s x %s = %s" %(x, i, x*i))
+    print('')

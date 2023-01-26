@@ -1,0 +1,1 @@
+python3 power_law.py -s images/picture_1.jpg

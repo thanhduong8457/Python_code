@@ -1,8 +1,15 @@
 import cv2
 import numpy as np
-   
-# Read an image
-img = cv2.imread('images/picture_1.jpg')
+import argparse
+
+# construct the argument parser and parse the arguments
+ap = argparse.ArgumentParser()
+ap.add_argument("-s", "--source", required=True, help="path to the input source image")
+args = vars(ap.parse_args())
+
+# load the source and reference images
+print("[INFO] loading source images...")
+img = cv2.imread(args["source"])
 img = cv2.resize(img, (0,0), None, 0.5, 0.5)
    
 # Apply log transformation method
