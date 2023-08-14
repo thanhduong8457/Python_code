@@ -5,6 +5,7 @@ import sys
 import common
 import common_func
 import time
+import openpyxl
 start = time.process_time()
 
 global Fixed_format
@@ -22,28 +23,28 @@ def main(argv):
     toHop_THTP = common.ExcelHandler("toHop_THTP.xlsx")
     toHop_THTP.chosse_current_sheet('Sheet1')
 
-    # Book1 = common.ExcelHandler("Book1.xlsx")
-    # Book1.chosse_current_sheet('Sheet1')
+    Book1 = common.ExcelHandler("Book1.xlsx")
+    Book1.chosse_current_sheet('Sheet1')
 
     Book2 = common.ExcelHandler("Book2.xlsx")
     Book2.chosse_current_sheet("Sheet1")
 
-    # new_workbook = openpyxl.Workbook()
+    new_workbook = openpyxl.Workbook()
     name_new_workbook = "ExampleOutput.xlsx"
-    # new_workbook.save(name_new_workbook)
-    # print("Excel file", name_new_workbook, "has been created.")
+    new_workbook.save(name_new_workbook)
+    print("Excel file", name_new_workbook, "has been created.")
     output_file = common.ExcelHandler(name_new_workbook)
 
     # ##########################################################
     # # Create a new Workbook and crist sheet contain all majors
     # ##########################################################
-    # row_data_header = []
-    # for row in Book1.current_sheet.iter_rows(min_row=1, max_row=1, values_only=True):
-    #     # Append each cell value to the list
-    #     for cell_value in row:
-    #         row_data_header.append(cell_value)
+    row_data_header = []
+    for row in Book1.current_sheet.iter_rows(min_row=1, max_row=1, values_only=True):
+        # Append each cell value to the list
+        for cell_value in row:
+            row_data_header.append(cell_value)
 
-    # # print(row_data_header)
+    # print(row_data_header)
 
     list_id_major = []
 
@@ -53,59 +54,60 @@ def main(argv):
 
     for col in toHop_THTP.current_sheet.iter_rows(2, toHop_THTP.current_sheet.max_row):
         sheet_name = col[index_maNganh].value
-        # if sheet_name not in output_file.workbook.sheetnames:
-        if sheet_name in output_file.workbook.sheetnames: # delete this line
+        if sheet_name not in output_file.workbook.sheetnames:
             if sheet_name not in list_id_major:
                 list_id_major.append(sheet_name)
-        #     output_file.add_sheet(sheet_name)
-        #     output_file.chosse_current_sheet(sheet_name)
-        #     column_temp = 1
-        #     for temptemp in row_data_header:
-        #         cell = output_file.current_sheet.cell(row = 1, column = column_temp)
-        #         cell.value = temptemp
-        #         column_temp += 1
+            output_file.add_sheet(sheet_name)
+            output_file.chosse_current_sheet(sheet_name)
+            column_temp = 1
+            for temptemp in row_data_header:
+                cell = output_file.current_sheet.cell(row = 1, column = column_temp)
+                cell.value = temptemp
+                column_temp += 1
 
-    # output_file.remove_sheet("Sheet")
+    output_file.remove_sheet("Sheet")
+    output_file.save_file()
 
-    # ##########################################################
-    # # start to arange to major
-    # ##########################################################
+    ##########################################################
+    # start to arange to major
+    ##########################################################
 
-    # ma_nganh_index = Book1.find_colum_index_with_content("Mã ngành")
-    # ma_PTXT_index = Book1.find_colum_index_with_content("Mã PTXT")
+    ma_nganh_index = Book1.find_colum_index_with_content("Mã ngành")
+    ma_PTXT_index = Book1.find_colum_index_with_content("Mã PTXT")
 
-    # # Book1.print_data_collum(ma_nganh_index)
-    # # Book1.print_data_collum(CMND_index)
+    # Book1.print_data_collum(ma_nganh_index)
+    # Book1.print_data_collum(CMND_index)
     
-    # for row in Book1.current_sheet.iter_rows(2, Book1.current_sheet.max_row):
-    #     sheet_name = row[ma_nganh_index].value
-    #     # fill_data = col[CMND_index].value
-    #     if (row[ma_PTXT_index].value != '100'):
-    #         continue
+    for row in Book1.current_sheet.iter_rows(2, Book1.current_sheet.max_row):
+        sheet_name = row[ma_nganh_index].value
+        # fill_data = col[CMND_index].value
+        if (row[ma_PTXT_index].value != '100'):
+            continue
 
-    #     print("process for", sheet_name)
+        print("process for", sheet_name)
 
-    #     # list_data = []
-    #     # for my_colum in Book1.current_sheet.iter_cols(2, Book1.current_sheet.max_column):
-    #     #     list_data.append(row[my_colum].value)
+        # list_data = []
+        # for my_colum in Book1.current_sheet.iter_cols(2, Book1.current_sheet.max_column):
+        #     list_data.append(row[my_colum].value)
 
-    #     row_data = []
-    #     for cell in row[0:]:  # Start from the second column (index 1)
-    #         if (cell.value != ''):
-    #             row_data.append(cell.value)
+        row_data = []
+        for cell in row[0:]:  # Start from the second column (index 1)
+            if (cell.value != ''):
+                row_data.append(cell.value)
 
-    #     if sheet_name in output_file.workbook.sheetnames:
-    #         # print(f"Add student with ID number {fill_data} to sheet '{sheet_name}'")
-    #         output_file.chosse_current_sheet(sheet_name)
-    #         output_file.listSheet[sheet_name].index_row += 1
-    #         column_temp = 1
-    #         for temptemp in row_data:
-    #             cell = output_file.current_sheet.cell(row = output_file.listSheet[sheet_name].index_row, column = column_temp)
-    #             cell.value = temptemp
-    #             column_temp += 1
-    #     else:
-    #         print(f"Sheet '{sheet_name}' does not exist in the Excel file.")
+        if sheet_name in output_file.workbook.sheetnames:
+            # print(f"Add student with ID number {fill_data} to sheet '{sheet_name}'")
+            output_file.chosse_current_sheet(sheet_name)
+            output_file.listSheet[sheet_name].index_row += 1
+            column_temp = 1
+            for temptemp in row_data:
+                cell = output_file.current_sheet.cell(row = output_file.listSheet[sheet_name].index_row, column = column_temp)
+                cell.value = temptemp
+                column_temp += 1
+        else:
+            print(f"Sheet '{sheet_name}' does not exist in the Excel file.")
 
+    output_file.save_file()
     ##########################################################
     # get the list Khoi and its subject contain
     ##########################################################
@@ -163,29 +165,23 @@ def main(argv):
 
     Book2.chosse_current_sheet("Sheet1")
     
+    CMND_index_map1 = 1
+    if (False == Fixed_format):
+        CMND_index_map1 = output_file.find_colum_index_with_content("Số CMND")
+
     CMND_index_map2 = 3
     if (False == Fixed_format):
         CMND_index_map2 = Book2.find_colum_index_with_content("CMND")
 
-    temp_val = 0
-
     for temp_major in list_major:
-
-        temp_val += 1
+        print("process", temp_major.major_id)
+        output_file.chosse_current_sheet(temp_major.major_id)
 
         max_point = 0
         max_point_add_gap = 0
         ut_point = 0
         final_point = 0
         khoi_hight_point = ""
-
-        print(temp_major.major_id)
-
-        output_file.chosse_current_sheet(temp_major.major_id)
-
-        CMND_index_map1 = 1
-        if (False == Fixed_format):
-            CMND_index_map1 = output_file.find_colum_index_with_content("Số CMND")
 
         for row1_index, row1 in enumerate(output_file.current_sheet.iter_rows(min_row=2, values_only=True), start=2):
             cell = output_file.current_sheet.cell(row = 1, column = culumn_khoi_trung_tuyen)
@@ -196,6 +192,7 @@ def main(argv):
             cell.value = "final_point_add_gap"
             CMND_map1 = row1[CMND_index_map1]
             # print(CMND_map1)
+
             Book2.listSheet[Book2.current_sheet.title].index_row = 1
             for row2 in Book2.current_sheet.iter_rows(2, Book2.current_sheet.max_row):
                 CMND_map2 = row2[CMND_index_map2].value
@@ -222,14 +219,12 @@ def main(argv):
 
                     cell = output_file.current_sheet.cell(row = row1_index, column = culumn_diem_add_gap)
                     cell.value = final_point
-
-                    output_file.sort_inc_base_on_column_index(culumn_diem_add_gap)
-                    output_file.save_file()
                     break
 
-        
-        if temp_val == 2:
-            break
+        output_file.sort_inc_base_on_column_index(culumn_diem_add_gap)
+        output_file.save_file()
+        # if temp_val == 2:
+        #     break
 
 ##############################################################
 #

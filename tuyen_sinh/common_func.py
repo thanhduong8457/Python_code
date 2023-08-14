@@ -127,5 +127,5 @@ def caculate_point(Book2, CMND, major):
         point = 0
         sum_of_heso = 0
     
-    print("in major id",major.major_id,"with khoi",khoi.name,"student id",CMND,"khoi high point is",khoi_hight_point,"max point is", round(max_point, 2))
+    # print("in major id",major.major_id,"with khoi",khoi.name,"student id",CMND,"khoi high point is",khoi_hight_point,"max point is", round(max_point, 2))
     return khoi_hight_point, max_point, max_point_add_gap

@@ -86,11 +86,11 @@ class ExcelHandler:
             print("sheet name",sheet_to_focus,"is not exist")
             return
         
-        for temp in self.workbook.sheetnames:
-            if temp == sheet_to_focus:
-                self.workbook.active.title = temp
-                self.current_sheet = self.workbook.active
-                return self.workbook.active.title
+        for sheet_name in self.workbook.sheetnames:
+            if sheet_name == sheet_to_focus:
+                sheet = self.workbook[sheet_name]
+                self.workbook.active = sheet
+                self.current_sheet = sheet
 
     def print_info(self):
         print("file name is {self.name_file}")
