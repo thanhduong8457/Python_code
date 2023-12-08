@@ -86,18 +86,12 @@ def main():
         
         xpoints = np.append(xpoints, my_pid.reference_value)
         ypoints = np.append(ypoints, yk)
-
+        
         if time_to_simulate_temp == stop_point:
             plt.plot(ypoints)
             plt.plot(xpoints)
             plt.show()
             exit()
-        elif time_to_simulate_temp == int(stop_point/4):
-            my_pid.reference_value = int(my_pid.reference_value/2)
-        elif time_to_simulate_temp == 2*int(stop_point/4):
-            my_pid.reference_value = 2*int(my_pid.reference_value)
-        elif time_to_simulate_temp == 3*int(stop_point/4):
-            my_pid.reference_value = int(my_pid.reference_value/2)
 
         time.sleep(Ts)
 
