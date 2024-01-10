@@ -1,13 +1,13 @@
 import cv2
 import ObjectDetectionModule as odm
-import SerialModule as sm
+# import SerialModule as sm
 import numpy as np
 import time
 
 cap = cv2.VideoCapture('Resources/test.mkv')
 #cap = cv2.VideoCapture(0)
 
-ser = sm.initConnection('COM7', 115200) # on jetson replace COM8 with /dev/ttyTHS1 coresponding 
+# ser = sm.initConnection('COM7', 115200) # on jetson replace COM8 with /dev/ttyTHS1 coresponding 
 
 faceCascade = cv2.CascadeClassifier("Resources/haarcascade_frontalface_default.xml")
 
@@ -23,7 +23,7 @@ while True:
     cv2.line(imgObjects,(w//2,0),(w//2,h),(255,0,255),1)    #when run this program we can delete this command
     cv2.line(imgObjects,(0,h//2),(w,h//2),(255,0,255),1)    #when run this program we can delete this command
 
-    sm.sendData(ser, [int(cx-w//2), cd], 5)
+    # sm.sendData(ser, [int(cx-w//2), cd], 5)
 
     img = cv2.resize(imgObjects, (0,0), None, 2, 2) #when run this program we can delete this command
     cv2.imshow("Result", img)   #when run this program we can delete this command

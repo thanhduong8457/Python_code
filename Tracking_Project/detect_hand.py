@@ -29,7 +29,7 @@ if not (cap.isOpened()):
     print('Could not open video device')
 
 if __name__ == "__main__":
-    ser = initConnection("COM8", 9600)
+    # ser = initConnection("COM8", 9600)
     count = 0
     while True:
         success, img = cap.read()
@@ -52,7 +52,7 @@ if __name__ == "__main__":
                         count = count + 1
                         if(count==3):
                             count = 0
-                            ser.write(datasend.encode())
+                            # ser.write(datasend.encode())
 
                 myDraw.draw_landmarks(img, handLms, mpHands.HAND_CONNECTIONS)
 
